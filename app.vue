@@ -1,21 +1,6 @@
 <script setup lang="ts">
-
- 
-// let AllCur = ref<[string,number][]>([
-//   ["KWD",0.00378],
-//   ["BHD",0.00459],
-//   ["OR",0.0047],
-//   ["BPS",0.01064],
-//   ["EE",0.01221],
-//   ["USD",0.01225],
-//   ["BRD",0.01716],
-//   ["NZD",0.0206],
-//   ["AF",0.02194],
-//   ["INR",1]
-
-// ]);
- 
-let AllCur = ref<Record<string,[string,number]>>({
+// defining a string for currency name and its value w.r.t INR
+ let AllCur = ref<Record<string,[string,number]>>({
   KWD:["Kuwaiti Dinar",0.00378],
   BHD:["Bahaini Dinar",0.00459],
   OR:["Omani Rial",0.0047],
@@ -28,20 +13,19 @@ let AllCur = ref<Record<string,[string,number]>>({
   INR:["Indian Rupee",1]
 
 });
- 
-
+  
 const c1 = ref<string>('INR');
 const c2 = ref<string>("USD");
 console.log(c2.value)
 const v1 = ref<number>(1);
 const v2 = ref<number>(0.012);
 
-function onclickk(){
+function onclickk(){  //function to calculate conversion value
 const calculation = v1.value * (AllCur.value[c2.value][1] / AllCur.value[c1.value][1]);
 console.log(calculation);
 v2.value = calculation;
 }
-function exchange(){
+function exchange(){  //function for exchange button
   let t1 = ref(c1.value)
   c1.value = c2.value;
   c2.value = t1.value;
@@ -49,14 +33,7 @@ function exchange(){
   let t2 = ref(v1.value);
   v1.value = v2.value;
   v2.value = t2.value
-}
-//  watch([c2],()=>{
-//   console.log(AllCur.value.find((e:[string,number])=>e[0]==c2.value))
-
-//  },)
-
-
-//  AllCur.value.find()
+} 
 </script>
 
 <template>
@@ -78,20 +55,10 @@ function exchange(){
             h-8
           "
         >
-          <option v-for="(value, key) in AllCur" :key="key" :value="key">
-            {{ value[0] }}
+        <!-- Putting all options using v-for  -->
+          <option v-for="(value, key) in AllCur" :key="key" :value="key"> 
+            {{ value[0] }} 
           </option>
-          <!-- <option value="KWD">Kuwaiti Dinar</option>
-          <option value="BHD">Bahaini Dinar</option>
-          <option value="OR">Omani Rial</option>
-          <option value="BPS">British Pound Sterling</option>
-          <option value="EE">European Euro</option>
-          <option value="USD">US Dollar</option>
-          <option value="BRD">Brunei Dollar</option>
-          <option value="NZD">New Zealand Dollar</option>
-          <option value="AF">Aruban Florin</option>
-          <option value="INR">Indian Rupee</option>
-          -->
           </select
         ><br />
         <input
@@ -111,7 +78,8 @@ function exchange(){
           "
         />
       </div>
-      <button @click="exchange()">
+      <!-- exchange button for exchanging LHS to RHS -->
+      <button @click="exchange()"> 
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -140,17 +108,7 @@ function exchange(){
             h-8
           "
         >
-          <!-- <option value="KWD">Kuwaiti Dinar</option>
-          <option value="BHD">Bahaini Dinar</option>
-          <option value="OR">Omani Rial</option>
-          <option value="BPS">British Pound Sterling</option>
-          <option value="EE">European Euro</option>
-          <option value="USD">US Dollar</option>
-          <option value="BRD">Brunei Dollar</option>
-          <option value="NZD">New Zealand Dollar</option>
-          <option value="AF">Aruban Florin</option>
-          <option value="INR">Indian Rupee</option> -->
-          <option v-for="(value, key) in AllCur" :key="key" :value="key">
+           <option v-for="(value, key) in AllCur" :key="key" :value="key">
             {{ value[0] }}
           </option>
           </select
@@ -173,6 +131,7 @@ function exchange(){
         />
       </div>
      </div>
+     <!-- convert button onclick function will performe -->
     <button
       class="
         bg-red-600
